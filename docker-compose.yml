@@ -4,8 +4,6 @@ x-authentik-common-env: &authentik-common-env
   AUTHENTIK_POSTGRESQL__NAME: authentik
   AUTHENTIK_POSTGRESQL__PASSWORD: ${PSQL_PWD}
   AUTHENTIK_POSTGRESQL__USER: authentik
-  AUTHENTIK_REDIS__HOST: authentik-redis
-  AUTHENTIK_REDIS__PASSWORD: ${REDIS_PWD}
   AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
   AUTHENTIK_LOG_LEVEL: warning
   AUTHENTIK_EMAIL__HOST: ${AUTHENTIK_EMAIL__HOST}
@@ -18,25 +16,6 @@ x-authentik-common-env: &authentik-common-env
 
 name: authentik
 services:
-  authentik-redis:
-    container_name: authentik-redis
-    hostname: authentik-redis
-    image: redis:alpine
-    networks:
-      - shared_network
-    restart: always
-    healthcheck:
-      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    command: >
-      --requirepass ${REDIS_PWD}
-      --bind 0.0.0.0
-      --save 600 1
-      --loglevel warning
-    volumes:
-      - ./data/authentik-redis:/data
   authentik-psql:
     container_name: authentik-psql
     hostname: authentik-psql
@@ -77,8 +56,6 @@ services:
     depends_on:
       authentik-psql:
         condition: service_healthy
-      authentik-redis:
-        condition: service_healthy
     environment: *authentik-common-env
     volumes:
       - ./data/media:/media
@@ -93,8 +70,6 @@ services:
     restart: always
     depends_on:
       authentik-psql:
-        condition: service_healthy
-      authentik-redis:
         condition: service_healthy
     environment: *authentik-common-env
     user: root

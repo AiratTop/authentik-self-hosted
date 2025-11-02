@@ -4,7 +4,7 @@
 
 This repository provides a `docker-compose` setup to run a self-hosted [Authentik](https://goauthentik.io/) instance. Authentik is a flexible, open-source Identity & Access Management (IAM) solution that provides Single Sign-On, support for various protocols, and a user-friendly interface.
 
-This setup uses dedicated [PostgreSQL](https://www.postgresql.org/) and [Redis](https://redis.io/) containers and is pre-configured to join a shared Docker network, allowing easy integration with other self-hosted services.
+This setup uses dedicated [PostgreSQL](https://www.postgresql.org/) container and is pre-configured to join a shared Docker network, allowing easy integration with other self-hosted services.
 
 ## Key Features
 
@@ -13,7 +13,7 @@ This setup uses dedicated [PostgreSQL](https://www.postgresql.org/) and [Redis](
 -   **Extensible & Customizable**: Use custom templates, policies, and integrations to fit your needs.
 -   **Advanced Security**: Features like multi-factor authentication (MFA), passwordless login, and detailed audit logs.
 -   **Outpost Integrations**: Easily put existing applications behind a secure proxy with forward authentication.
--   **Decoupled Services**: Uses separate, dedicated containers for PostgreSQL (`ak-psql`) and Redis (`ak-redis`) for better stability and management.
+-   **Decoupled Services**: Uses separate, dedicated containers for PostgreSQL (`authentik-psql`) and Worker (`authentik-worker`) for better stability and management.
 
 ## Getting Started
 
@@ -34,8 +34,6 @@ This setup uses dedicated [PostgreSQL](https://www.postgresql.org/) and [Redis](
     ```env
     # A strong password for the Authentik database user
     PSQL_PWD=
-    # A strong password for Redis
-    REDIS_PWD=
     # A long, random, and secret string used for signing sessions
     AUTHENTIK_SECRET_KEY=
     ```
