@@ -67,7 +67,7 @@ services:
     command: server
     container_name: authentik-server
     hostname: authentik-server
-    image: authentik/server:2025.8
+    image: authentik/server:2025.10
     networks:
       - shared_network
     ports:
@@ -87,7 +87,7 @@ services:
     command: worker
     container_name: authentik-worker
     hostname: authentik-worker
-    image: authentik/server:2025.8
+    image: authentik/server:2025.10
     networks:
       - shared_network
     restart: always
