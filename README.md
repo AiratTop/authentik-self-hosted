@@ -31,6 +31,7 @@ This setup uses dedicated [PostgreSQL](https://www.postgresql.org/) container an
 
 3.  **Configure environment variables:**
     Create a `.env` file and add the following required variables. These are critical for securing your instance.
+    You can use my Open Source [password generator](https://pass.airat.top) to create a strong password.
     ```env
     # A strong password for the Authentik database user
     PSQL_PWD=
